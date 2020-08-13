@@ -1,5 +1,8 @@
 ﻿using BlobServices.Services;
+using BlobServices.Entity;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace TestBlobService
 {
@@ -11,8 +14,14 @@ namespace TestBlobService
             IBlobService service = new BlobService(MyAccountConnectionString);
 
             service.SelectBlobContainer("teste");
-            var result = service.ListFiles();
-            Console.WriteLine(result);
+            IEnumerable<BlobFile> result = service.ListFiles();
+            foreach (var f in result)
+            {
+                Console.WriteLine("File Full Name: " + f.FullName);
+                Console.WriteLine("File Name: " + f.Name);
+                Console.WriteLine("File Folder: " + f.Folder);
+                Console.WriteLine("File URI: " + f.Uri);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlobServices.Entity;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,6 +13,8 @@ namespace BlobServices.Services
 
         byte[] RetrieveFile(string path);
 
-        string ListFiles();
+        string ListFilesString();
+
+        IEnumerable<BlobFile> ListFiles();
     }
 }

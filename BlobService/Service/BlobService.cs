@@ -1,4 +1,5 @@
-﻿using Microsoft.Azure.Storage;
+﻿using BlobServices.Entity;
+using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.Blob;
 using Microsoft.Azure.WebJobs;
 using System;
@@ -19,7 +20,20 @@ namespace BlobServices.Services
             _blobClient = cloudStorageAccount.CreateCloudBlobClient();
         }
 
-        public string ListFiles()
+        public IEnumerable<BlobFile> ListFiles()
+        {
+            var blobList = _activeContainer.ListBlobs();
+
+            List<BlobFile> result = new List<BlobFile>();
+            foreach (var blob in blobList)
+            {
+                result.Add(new BlobFile(blob.Uri));
+            }
+
+            return result;
+        }
+
+        public string ListFilesString()
         {
             var blobList = _activeContainer.ListBlobs();
 
