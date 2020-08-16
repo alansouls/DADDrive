@@ -2,7 +2,7 @@
   "profiles": {
     "TestBlobService": {
       "commandName": "Project",
-      "commandLineArgs": "DefaultEndpointsProtocol=https;AccountName=daddiag204;AccountKey=DzDol+lixJNXLePJ1yibWuW8hINchs1S5YWuud5YvckxAzBo7+cOJWy5762jonJOPsNeW4Sqxsb8y0JL3mwvmA==;EndpointSuffix=core.windows.net atividade3 filesToUpload/file1.bin filesToUpload/file2.tst",
+      "commandLineArgs": "INSIRA_CONNECTION_STRING_AQUI atividade3 filesToUpload/file1.bin filesToUpload/file2.tst",
       "workingDirectory": "D:\\Documentos\\Pessoal\\DAD\\DADDrive\\TestBlobService"
     }
   }

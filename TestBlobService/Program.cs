@@ -16,6 +16,11 @@ namespace TestBlobService
         //É necessário setar a working directory para a pasta do projeto, ou passar o caminho relativo correto dos arquivos nos argumentos
         static void Main(string[] args)
         {
+            if (args.Count() < 4)
+                throw new Exception("Invalid number of argument!");
+            else if (args[0] == "INSIRA_CONNECTION_STRING_AQUI")
+                throw new Exception("Connection string not inserted!");
+
             //Lê a string de conexão da conta de armazenamento através do primeiro argumento
             string MyAccountConnectionString = args[0];
             //Inicia o serviço do blob
