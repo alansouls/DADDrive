@@ -6,16 +6,19 @@ using DadDrive.Models;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using BlobServices.Services;
 
 namespace DadDrive.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private IBlobService _blobService;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            _blobService = new BlobService("DefaultEndpointsProtocol=https;AccountName=daddiag204;AccountKey=90FXksIHbRcw7Tnq0LKpnMXVcmwPFVOLBbuFtLAJIDHrnSgsGuB08wy1S9eK+TfMDGnCFAdRY3IMZ7KM4Fm+TQ==;EndpointSuffix=core.windows.net");
         }
 
         public IActionResult Index()
@@ -26,19 +29,18 @@ namespace DadDrive.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
-            if (file == null || file.Length == 0)
-                return Content("file not selected");
-
-            var path = Path.Combine(
-                        Directory.GetCurrentDirectory(), "wwwroot",
-                        file.FileName);
-
-            using (var stream = new FileStream(path, FileMode.Create))
+            if (file.Length > 0)
             {
-                await file.CopyToAsync(stream);
+                using (var ms = new MemoryStream())
+                {
+                    file.CopyTo(ms);
+                    var fileBytes = ms.ToArray();
+                    string s = Convert.ToBase64String(fileBytes);
+                    _blobService.SelectBlobContainer("images");
+                    _blobService.UploadFile(fileBytes, "images");
+                }
             }
-
-            return RedirectToAction("Files");
+            return Ok();
         }
 
         public IActionResult List()
