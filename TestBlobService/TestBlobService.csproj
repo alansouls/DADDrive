@@ -9,4 +9,8 @@
     <ProjectReference Include="..\BlobService\BlobService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="filesToUpload\" />
+  </ItemGroup>
+
 </Project>

@@ -3,25 +3,43 @@ using BlobServices.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 namespace TestBlobService
 {
+    /// <summary>
+    /// Testa o BlobService de acordo com o que foi pedido na atividade
+    /// </summary>
     class Program
     {
-        static string MyAccountConnectionString = "DefaultEndpointsProtocol=https;AccountName=fdinhadiag;AccountKey=GaubV943eZmd71z8G3g8Qx0+x6+daBJPl2XK5YXjV8LxR5YwYLvlJURVehK2YfI/uc2YfkVkd7Rz4ipfwJd4fQ==;EndpointSuffix=core.windows.net";
+        //argumentos passados connectionStr atividade3 filesToUpload/file1.bin filesToUpload/file2.tst
+        //É necessário setar a working directory para a pasta do projeto, ou passar o caminho relativo correto dos arquivos nos argumentos
         static void Main(string[] args)
         {
+            if (args.Count() < 4)
+                throw new Exception("Invalid number of argument!");
+            else if (args[0] == "INSIRA_CONNECTION_STRING_AQUI")
+                throw new Exception("Connection string not inserted!");
+
+            //Lê a string de conexão da conta de armazenamento através do primeiro argumento
+            string MyAccountConnectionString = args[0];
+            //Inicia o serviço do blob
             IBlobService service = new BlobService(MyAccountConnectionString);
 
-            service.SelectBlobContainer("teste");
-            IEnumerable<BlobFile> result = service.ListFiles();
-            foreach (var f in result)
-            {
-                Console.WriteLine("File Full Name: " + f.FullName);
-                Console.WriteLine("File Name: " + f.Name);
-                Console.WriteLine("File Folder: " + f.Folder);
-                Console.WriteLine("File URI: " + f.Uri);
-            }
+            //Seta o blob com o nome recebido no segundo argumento como ativo
+            string blobName = args[1];
+            service.SelectBlobContainer(blobName);
+
+            //Lê os dois arquivos
+            byte[] file1 =  File.ReadAllBytes(args[2]);
+            byte[] file2 = File.ReadAllBytes(args[3]);
+
+            //Faz upload dos arquivos;
+            service.UploadFile(file1, args[2]);
+            service.UploadFile(file2, args[3]);
+
+            //Lista arquivos
+            Console.WriteLine(service.ListFilesString());
         }
     }
 }

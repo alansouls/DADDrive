@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "TestBlobService": {
+      "commandName": "Project",
+      "commandLineArgs": "INSIRA_CONNECTION_STRING_AQUI atividade3 filesToUpload/file1.bin filesToUpload/file2.tst",
+      "workingDirectory": "D:\\Documentos\\Pessoal\\DAD\\DADDrive\\TestBlobService"
+    }
+  }
+}
