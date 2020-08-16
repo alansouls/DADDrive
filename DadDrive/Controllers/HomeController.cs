@@ -7,6 +7,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using BlobServices.Services;
+using Microsoft.VisualBasic;
 
 namespace DadDrive.Controllers
 {
@@ -37,7 +38,7 @@ namespace DadDrive.Controllers
                     var fileBytes = ms.ToArray();
                     string s = Convert.ToBase64String(fileBytes);
                     _blobService.SelectBlobContainer("images");
-                    _blobService.UploadFile(fileBytes, "images");
+                    _blobService.UploadFile(fileBytes, file.FileName);
                 }
             }
             return Ok();
@@ -57,6 +58,16 @@ namespace DadDrive.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult ListBlobs()
+        {
+            _blobService.SelectBlobContainer("images");
+            var files = _blobService.ListFiles();
+            var model = new BlobListViewModel();
+            model.Blobs = files;
+
+            return View(model);
         }
     }
 }
