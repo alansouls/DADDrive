@@ -1,5 +1,10 @@
 # DADDrive
 
+## Atividade 3
+  * O projeto BlobService é uma biblioteca que possui o código que lida com envio e recuperação de arquivos no Azure Blob.
+  * O projeto daddrive é uma aplicação web que utiliza a biblioteca citada acima para permitir upload e listagem dos arquivos presentes no blob.
+  * o projeto TestBlobService é uma aplicação de console que faz upload de 2 arquivos e em seguida lista eles.
+  
 ## Configurar ambiente no linux para rodar o projeto (Ubuntu 18.04)
  * Faça download do pacote com os seguintes comandos:   
  <code>wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb</code>    
@@ -21,5 +26,3 @@
   <code> sudo a2ensite daddrive.conf </code>
  * Rode a aplicação com o comando: 
   <code> sudo dotnet run --urls "http://*:5000" </code>
- 
-       
