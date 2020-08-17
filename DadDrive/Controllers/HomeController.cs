@@ -28,7 +28,7 @@ namespace DadDrive.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadFile(IFormFile file)
+        public IActionResult UploadFile(IFormFile file)
         {
             if (file.Length > 0)
             {
@@ -41,7 +41,7 @@ namespace DadDrive.Controllers
                     _blobService.UploadFile(fileBytes, file.FileName);
                 }
             }
-            return Ok();
+            return Redirect("ListBlobs");
         }
 
         public IActionResult List()
