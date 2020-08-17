@@ -16,10 +16,10 @@ namespace DadDrive.Controllers
         private readonly ILogger<HomeController> _logger;
         private IBlobService _blobService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IBlobService blobService)
         {
             _logger = logger;
-            _blobService = new BlobService("DefaultEndpointsProtocol=https;AccountName=daddiag204;AccountKey=90FXksIHbRcw7Tnq0LKpnMXVcmwPFVOLBbuFtLAJIDHrnSgsGuB08wy1S9eK+TfMDGnCFAdRY3IMZ7KM4Fm+TQ==;EndpointSuffix=core.windows.net");
+            _blobService = blobService;
         }
 
         public IActionResult Index()

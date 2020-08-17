@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlobServices.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +14,7 @@ namespace DadDrive
 {
     public class Startup
     {
+        public static string ConnectionString = "DefaultEndpointsProtocol=https;AccountName=daddiag204;AccountKey=90FXksIHbRcw7Tnq0LKpnMXVcmwPFVOLBbuFtLAJIDHrnSgsGuB08wy1S9eK+TfMDGnCFAdRY3IMZ7KM4Fm+TQ==;EndpointSuffix=core.windows.net";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,6 +26,7 @@ namespace DadDrive
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<IBlobService, BlobService>(i => new BlobService(ConnectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
