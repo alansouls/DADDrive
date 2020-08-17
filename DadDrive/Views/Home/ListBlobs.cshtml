@@ -9,8 +9,7 @@
     @foreach (var file in Model.Blobs)
     {
         <li class="list-group-item list-group-item-info">
-            Arquivo: @file.Name <br />
-            Url: @file.Uri
+            Arquivo: <a href="@file.Uri">@file.Name</a> <br /> 
         </li>
     }
 </ul>
