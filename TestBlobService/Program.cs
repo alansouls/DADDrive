@@ -12,7 +12,7 @@ namespace TestBlobService
     /// </summary>
     class Program
     {
-        //argumentos passados connectionStr atividade3 filesToUpload/file1.bin filesToUpload/file2.tst
+        //argumentos passados connectionStr atividade3 filesToUpload/file1.txt filesToUpload/file2.txt
         //É necessário setar a working directory para a pasta do projeto, ou passar o caminho relativo correto dos arquivos nos argumentos
         static void Main(string[] args)
         {
